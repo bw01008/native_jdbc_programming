@@ -79,12 +79,11 @@ public class StudentDaoImpl implements StudentDao {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, student.getStdNo());
 			pstmt.setString(2, student.getstdName());
-			pstmt.setInt(3, student.getKor()); /////////////////////// 
-			pstmt.setInt(4, student.getEng());//////////////////
+			pstmt.setInt(3, student.getKor()); 
+			pstmt.setInt(4, student.getEng());
 			pstmt.setInt(5, student.getMath());			
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -93,16 +92,13 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public int updateStudent(Student student) {
-		String sql = "update student set stdname = ? where stdno = ?";  // 혹시안되면 수정하기
+		String sql = "update student set stdname = ? where stdno = ?";  
 		try (Connection con = JdbcUtil.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, student.getstdName());
 			pstmt.setInt(2, student.getStdNo());
-
 			return pstmt.executeUpdate();
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;

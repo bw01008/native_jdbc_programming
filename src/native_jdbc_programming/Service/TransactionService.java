@@ -11,7 +11,7 @@ import native_jdbc_programming.util.JdbcUtil;
 // commit / rollback 테스트
 public class TransactionService {
 	// title과 dept 추가하는 메소드
-	public String transAddTitleAndDepartment(Title title, Department dept) {
+	public String transAddTitleAndDepartment(Title title, Department dept) {	// 반환 타입이 String인 이유는 "commit" / "rollback"반환
 		String titleSql = "insert into title values (?, ?)";
 		String deptSql = "insert into department values (?, ?, ?)";
 		Connection con = null; // Connection 선언
@@ -34,10 +34,10 @@ public class TransactionService {
 			dPstmt.setInt(3, dept.getFloor());
 			dPstmt.executeUpdate(); // 쿼리문 실행
 
-			con.commit(); // 두 쿼리 문장이 실행되면 커밋해준다.
-			res = "commit"; // commit문자열
+			con.commit(); // 두 쿼리 문장이 정상실행되면 커밋해준다.
+			res = "commit"; // "commit"문자열을 변수에 저장
 		} catch (SQLException e) {
-			res = "rollback";
+			res = "rollback";	//"rollback"문자열을 변수에 저장
 			rollbackUtil(con); // rollback 예외처리를 메소드로 빼주고 호출
 		} finally {
 			System.out.println(res);
@@ -48,7 +48,7 @@ public class TransactionService {
 	}// end of method add
 
 	// title과 dept 삭제하는 메소드
-	public int transRemoveTitleAndDepartment(Title title, Department dept) {
+	public int transRemoveTitleAndDepartment(Title title, Department dept) {//쿼리문성공 개수를 반환하기때문에 반환타입이 int이다.
 		String titleSql = "delete from title where tno = ?";
 		String deptSql = "delete from department where deptNo = ?";
 		Connection con = null;
