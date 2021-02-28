@@ -12,15 +12,14 @@ import native_jdbc_programming.dto.Student;
 import native_jdbc_programming.util.JdbcUtil;
 
 public class StudentDaoImpl implements StudentDao {
+	// 싱글톤 객체 생성
+	private static StudentDaoImpl instanse = new StudentDaoImpl();
 
-	private static final StudentDaoImpl instanse = new StudentDaoImpl();
+	private StudentDaoImpl() {
+	}
 
 	public static StudentDaoImpl getInstance() {
 		return instanse;
-	}
-
-	private StudentDaoImpl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -56,7 +55,8 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public Student selectStudentByNo(Student student) {
 		String sql = " select stdno,stdname,kor,eng,math from student where stdno = ?";
-		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try (Connection con = JdbcUtil.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, student.getStdNo());
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -67,21 +67,19 @@ public class StudentDaoImpl implements StudentDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		 return null;
+		return null;
 	}
-
-
 
 	@Override
 	public int insertStudent(Student student) {
 		String sql = "insert into student values (?,?,?,?,?)";
 		try (Connection con = JdbcUtil.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			 PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, student.getStdNo());
 			pstmt.setString(2, student.getstdName());
-			pstmt.setInt(3, student.getKor()); 
+			pstmt.setInt(3, student.getKor());
 			pstmt.setInt(4, student.getEng());
-			pstmt.setInt(5, student.getMath());			
+			pstmt.setInt(5, student.getMath());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,9 +90,8 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public int updateStudent(Student student) {
-		String sql = "update student set stdname = ? where stdno = ?";  
-		try (Connection con = JdbcUtil.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
+		String sql = "update student set stdname = ? where stdno = ?";
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, student.getstdName());
 			pstmt.setInt(2, student.getStdNo());
 			return pstmt.executeUpdate();
@@ -103,11 +100,11 @@ public class StudentDaoImpl implements StudentDao {
 		}
 		return 0;
 	}
+
 	@Override
 	public int deleteStudent(Student student) {
 		String sql = "delete from student where stdno = ?";
-		try (Connection con = JdbcUtil.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, student.getStdNo());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
