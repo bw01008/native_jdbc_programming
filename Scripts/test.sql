@@ -1,4 +1,4 @@
-select user(), database();
+datselect user(), database();
 
 show tables;
 

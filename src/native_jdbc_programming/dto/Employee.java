@@ -6,10 +6,10 @@ public class Employee {
 	// Fields
 	private int empno;
 	private String empname;
-	private Title title;	//참조하는 테이블을 타입으로 가진다.
-	private Employee manager; // 참조하는 테이블을 타입으로 가진다.
+	private Title title;
+	private Employee manager; 
 	private int salary;
-	private Department dept; // 참조하는 테이블을 타입으로 가진다.
+	private Department dept; 
 
 	// Constructor
 	//기본 생성자

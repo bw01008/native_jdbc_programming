@@ -14,7 +14,7 @@ import native_jdbc_programming.util.JdbcUtil;
 //3. TitleDao인터페이스를 구현하는 클래스
 public class TitleDaoImpl implements TitleDao {
 	// 싱글톤 객체 생성
-	private static final TitleDaoImpl instance = new TitleDaoImpl();
+	private static TitleDaoImpl instance = new TitleDaoImpl();
 	
 	// 외부에서 객체생성이 불가하도록 private으로 설정해준 기본 생성자
 	private TitleDaoImpl() {
